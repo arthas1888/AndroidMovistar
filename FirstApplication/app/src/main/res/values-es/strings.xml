@@ -3,4 +3,5 @@
     <string name="descargar">Button</string>
     <string name="title">Aplicación para el calcula de BMI</string>
     <string name="text_weight">Digite su peso en Kg</string>
+    <string name="warning">Los campos de peso o altura están vacios</string>
 </resources>
