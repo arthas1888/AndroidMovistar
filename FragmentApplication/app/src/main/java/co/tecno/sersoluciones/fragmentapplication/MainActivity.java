@@ -12,7 +12,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import co.tecno.sersoluciones.fragmentapplication.fragments.BlankFragment;
 import co.tecno.sersoluciones.fragmentapplication.fragments.MainFragment;
+
+import static co.tecno.sersoluciones.fragmentapplication.fragments.BlankFragment.ARG_PARAM1;
+import static co.tecno.sersoluciones.fragmentapplication.fragments.BlankFragment.ARG_PARAM2;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,4 +54,23 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment BlankFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static BlankFragment newInstance(String param1, String param2) {
+        BlankFragment fragment = new BlankFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 }
