@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">ApplicationBMI</string>
-    <string name="title">Application BMI</string>
-    <string name="text_weight">Digite su peso en kg</string>
-    <string name="text_height">Digite su estatura en cm</string>
-</resources>
