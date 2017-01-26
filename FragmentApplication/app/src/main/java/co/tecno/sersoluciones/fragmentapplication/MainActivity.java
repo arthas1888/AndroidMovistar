@@ -26,10 +26,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        replaceFragment(new MainFragment());
+        this.replaceFragment(new MainFragment());
 
+    }
+
+    private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.container, new MainFragment());
+        fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
     }
 
