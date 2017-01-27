@@ -3,10 +3,12 @@ package co.tecno.sersoluciones.fragmentapplication.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import co.tecno.sersoluciones.fragmentapplication.R;
 
@@ -16,15 +18,15 @@ import co.tecno.sersoluciones.fragmentapplication.R;
  * {@link BlankFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class BlankFragment extends Fragment {
+public class BlankFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String ARG_PARAM1 = "num1";
     public static final String ARG_PARAM2 = "num2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int num1;
+    private int num2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -32,13 +34,12 @@ public class BlankFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            num1 = getArguments().getInt(ARG_PARAM1);
+            num2 = getArguments().getInt(ARG_PARAM2);
         }
     }
 
@@ -46,13 +47,18 @@ public class BlankFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank, container, false);
+        View view = inflater.inflate(R.layout.fragment_blank, container, false);
+        ((TextView) view.findViewById(R.id.result)).setText("El resultado es: " + (num1 + num2));
+        FloatingActionButton backButton = (FloatingActionButton) view
+                .findViewById(R.id.floatingActionButton);
+        backButton.setOnClickListener(this);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed() {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction("MainFragment lanzado de nuevo");
         }
     }
 
@@ -73,6 +79,15 @@ public class BlankFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.floatingActionButton:
+                onButtonPressed();
+                break;
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -85,6 +100,6 @@ public class BlankFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(String msg);
     }
 }

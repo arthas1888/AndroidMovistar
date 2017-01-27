@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import co.tecno.sersoluciones.fragmentapplication.MainActivity;
 import co.tecno.sersoluciones.fragmentapplication.R;
 
 public class MainFragment extends Fragment{
@@ -36,9 +37,13 @@ public class MainFragment extends Fragment{
 
     private void sumar(String num1, String num2) {
         if (validateNum(num1, num2)) {
-            //goBlank.....
+            ((MainActivity) getActivity())
+                    .replaceFragment(MainActivity
+                            .newInstance(Integer.valueOf(num1), Integer.valueOf(num2)));
+        }else{
+            editTextNum2.requestFocus();
+            editTextNum2.setError("Revice por favor el contenido de los EditText para seguir");
         }
-
     }
 
     private boolean validateNum(String a, String b){
