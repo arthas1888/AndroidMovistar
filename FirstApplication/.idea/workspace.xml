@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ddab2261-2878-4d16-9fb9-d969b7814fbb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FragmentApplication/app/src/main/java/co/tecno/sersoluciones/fragmentapplication/MainActivity.java" afterPath="$PROJECT_DIR$/../FragmentApplication/app/src/main/java/co/tecno/sersoluciones/fragmentapplication/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FragmentApplication/app/src/main/java/co/tecno/sersoluciones/fragmentapplication/fragments/BlankFragment.java" afterPath="$PROJECT_DIR$/../FragmentApplication/app/src/main/java/co/tecno/sersoluciones/fragmentapplication/fragments/BlankFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FragmentApplication/app/src/main/java/co/tecno/sersoluciones/fragmentapplication/fragments/MainFragment.java" afterPath="$PROJECT_DIR$/../FragmentApplication/app/src/main/java/co/tecno/sersoluciones/fragmentapplication/fragments/MainFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FragmentApplication/app/src/main/res/layout/fragment_blank.xml" afterPath="$PROJECT_DIR$/../FragmentApplication/app/src/main/res/layout/fragment_blank.xml" />
-    </list>
+    <list default="true" id="ddab2261-2878-4d16-9fb9-d969b7814fbb" name="Default" comment="" />
     <ignored path="FirstApplication.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,7 +38,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
               <caret line="35" column="68" selection-start-line="32" selection-start-column="8" selection-end-line="35" selection-end-column="68" />
-              <folding />
+              <folding>
+                <element signature="e#1043#1085#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2099,7 +2094,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="35" column="68" selection-start-line="32" selection-start-column="8" selection-end-line="35" selection-end-column="68" />
-          <folding />
+          <folding>
+            <element signature="e#1043#1085#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
