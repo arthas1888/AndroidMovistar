@@ -1,11 +1,19 @@
 package co.tecno.sersoluciones.styleapplication;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -23,22 +31,33 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import co.tecno.sersoluciones.styleapplication.fragments.ItemFragment;
+import co.tecno.sersoluciones.styleapplication.models.Point;
 import co.tecno.sersoluciones.styleapplication.utilities.ConectionDetector;
 import co.tecno.sersoluciones.styleapplication.utilities.MyPreferences;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        ItemFragment.OnListFragmentInteractionListener {
 
     private ProgressDialog progressDialog;
     private MyPreferences myPreferences;
     private ConectionDetector conectionDetector;
+    private int pk;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +90,14 @@ public class MainActivity extends AppCompatActivity
 
         myPreferences = new MyPreferences(this);
         conectionDetector = new ConectionDetector(this);
+        replaceFragment(new ItemFragment());
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -88,26 +115,6 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_update) {
-
-            if (conectionDetector.isConnectingToInternet()){
-                Toast.makeText(this, "Hay Internet", Toast.LENGTH_LONG).show();
-                getData();
-            }
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -157,30 +164,39 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void getData() {
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, "http://vesta.sersoluciones.com:9080/points/",
-                        null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+    @Override
+    public void onListFragmentInteraction(Point item) {
 
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("features");
-                            Log.d("MyDATA", jsonArray.toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        pk = item.getId();
+        Log.e("Main Activity", "_pk = " + pk);
+    }
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getGroupId()){
+            case 1:
+                sendNotification();
+                Intent intent = new Intent(this, DetailActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return super.onContextItemSelected(item);
 
-                    }
-                });
-        queue.add(jsObjRequest);
+    }
+
+    private void sendNotification() {
+        Intent intent = new Intent(this, DetailActivity.class);
+        Notification builder = new Notification.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setWhen(System.currentTimeMillis())
+                .setContentText("Notificaciones")
+                .setContentTitle("Revice por favor la notificacion")
+                .setContentIntent(PendingIntent.getActivity(this, 0, intent, 0))
+                .setPriority(Notification.PRIORITY_MAX)
+                .build();
+
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1, builder);
     }
 }
